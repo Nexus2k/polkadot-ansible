@@ -57,3 +57,5 @@ To upgrade to the latest Polkadot version you can simply restart the containers 
 ## Notes
 
 Monitoring is not yet covered in these ansible playbooks. Do NOT run a Polkadot/Kusama validator w/o proper monitoring or you will get slashed.
+
+You should not use `root` user on the server, instead replace the `ansible_user` field in `hosts.ini` with an unpriviledged user (which has docker rights).
