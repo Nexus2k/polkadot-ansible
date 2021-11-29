@@ -1,0 +1,52 @@
+- name: Check if main.yaml exists
+  fail:
+    msg: The local main.yaml config doesn't exist in the roles/polkadot-claimer/templates folder!
+  when: (role_path, '/templates/main.yaml') | join('') is not file
+
+- name: Check if wallet.json exists
+  fail:
+    msg: The local wallet.json config doesn't exist in the roles/polkadot-claimer/files folder!
+  when: (role_path, '/files/wallet.json-', chain) | join('') is not file
+
+- name: Check if password exists
+  fail:
+    msg: The local password config doesn't exist in the roles/polkadot-claimer/files folder!
+  when: (role_path, '/files/password-', chain) | join('') is not file
+
+- name: Setup claimer path
+  file:
+    path: '{{ claimer_path }}'
+    state: directory
+    owner: 1000
+    group: 1000
+
+- name: copy config
+  template:
+    src: 'main.yaml'
+    dest: '{{ claimer_path }}/main.yaml'
+    owner: 1000
+    group: 1000
+    mode: '0644'
+
+- name: copy files
+  copy:
+    src: '{{ item }}-{{ chain }}'
+    dest: '{{ claimer_path }}/{{ item }}'
+    owner: 1000
+    group: 1000
+    mode: '0644'
+  with_items:
+    - 'wallet.json'
+    - 'password'
+
+- name: Fill docker-compose claimer template
+  template:
+    src: 'docker-compose-claimer.yml'
+    dest: 'dc-{{ chain }}-claimer.yml'
+
+- name: Setup cronjob
+  cron:
+    name: "claim rewards for {{ chain }}"
+    minute: "0"
+    hour: "12,18"
+    job: "/usr/bin/docker-compose -f ~/dc-{{ chain }}-claimer.yml start > /dev/null"

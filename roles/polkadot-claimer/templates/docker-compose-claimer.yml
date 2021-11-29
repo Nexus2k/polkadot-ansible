@@ -1,0 +1,14 @@
+version: '3'
+services:
+  {{ chain }}-claimer:
+    image: web3f/accountant:v0.4.9
+    container_name: '{{ chain }}-claimer'
+    command:
+      - "-c"
+      - "/app/config/main.yaml"
+    volumes:
+      - "{{ claimer_path }}/main.yaml:/app/config/main.yaml"
+      - "{{ claimer_path }}/wallet.json:/app/keystore/wallet/wallet.json"
+      - "{{ claimer_path }}/password:/app/keystore/password/password"
+    hostname: '{{ chain }}-claimer'
+    working_dir: /app

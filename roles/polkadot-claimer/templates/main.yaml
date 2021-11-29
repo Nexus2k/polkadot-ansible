@@ -1,0 +1,12 @@
+---
+
+logLevel: info
+isDeepHistoryCheckForced: false
+wsEndpoint: "{{ api_endpoint }}"
+claimThirdParty:
+  claimerKeystore:
+    filePath: /app/keystore/wallet/wallet.json
+    passwordPath: /app/keystore/password/password
+  targets:
+  - alias: "{{ node_name }}"
+    validatorAddress: "{{ stash_addr }}"

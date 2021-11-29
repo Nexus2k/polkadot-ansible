@@ -1,0 +1,12 @@
+---
+- name: Setup polkadot
+  hosts: polkadot
+  become: yes
+  roles:
+    - polkadot-validator
+
+- name: Setup kusama
+  hosts: kusama
+  become: yes
+  roles:
+    - polkadot-validator

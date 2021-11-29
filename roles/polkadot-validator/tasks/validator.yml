@@ -1,0 +1,57 @@
+---
+- name: Clean running validator
+  docker_container:
+    name: '{{ chain }}'
+    state: stopped
+  ignore_errors: yes
+
+- name: Setup db path
+  file:
+    path: '{{ db_path }}'
+    state: directory
+    owner: 1000
+    group: 1000
+
+- name: Spin up docker
+  docker_compose:
+    project_name: '{{ chain }}'
+    definition:
+        version: '3'
+        services:
+            polkadot:
+                image: parity/polkadot
+                container_name: '{{ chain }}'
+                command:
+                    [
+                        "--name={{ node_name }}",
+                        "-l{{ logging_filter }}",
+                        "--chain={{ chain }}",
+                        "--validator",
+                        "--rpc-methods=Unsafe",
+                        "--rpc-external",
+                        "--rpc-cors=all",
+                        "--listen-addr=/ip4/0.0.0.0/tcp/{{ p2p_listen }}",
+                        "--public-addr=/ip4/{{ ansible_default_ipv4.address }}/tcp/{{ p2p_listen }}",
+                        "--prometheus-external",
+                        "--unsafe-pruning",
+                        "--pruning=1000",
+                        "--telemetry-url=wss://telemetry.polkadot.io/submit/ 1",
+                        "--telemetry-url={{ telemetry_url }} 1"
+                    ]
+                volumes:
+                - "{{ db_path }}:/polkadot"
+                ports:
+                - "{{ rpc_listen }}:9933"
+                - "{{ ws_listen }}:9944"
+                - "{{ metrics_listen }}:9615"
+                - "{{ p2p_listen }}:30333"
+                hostname: '{{ chain }}'
+                restart: unless-stopped
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+- ansible.builtin.assert:
+    that:
+        - "output.services.polkadot.{{ chain }}.state.running"

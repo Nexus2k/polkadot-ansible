@@ -1,0 +1,12 @@
+---
+- name: Restore polkadot db
+  hosts: polkadot
+  become: yes
+  roles:
+    - polkadot-restore-db
+
+- name: Restore kusama db
+  hosts: kusama
+  become: yes
+  roles:
+    - polkadot-restore-db

@@ -1,0 +1,24 @@
+---
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools', 'p7zip-full']
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }}/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+    state: present
+
+- name: Update apt and install docker-ce
+  apt: name=docker-ce state=latest
+
+- name: Install docker-compose
+  apt: name=docker-compose state=latest
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker

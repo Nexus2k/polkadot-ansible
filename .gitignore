@@ -1,0 +1,8 @@
+hosts.ini
+
+host_vars/hel1*
+
+roles/polkadot-claimer/files/wallet.json-polkadot
+roles/polkadot-claimer/files/wallet.json-kusama
+roles/polkadot-claimer/files/password-polkadot
+roles/polkadot-claimer/files/password-kusama

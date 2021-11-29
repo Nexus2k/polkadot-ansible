@@ -1,0 +1,12 @@
+---
+- name: Rotate polkadot keys
+  hosts: polkadot
+  become: yes
+  roles:
+    - polkadot-rotate-keys
+
+- name: Rotate kusama keys
+  hosts: kusama
+  become: yes
+  roles:
+    - polkadot-rotate-keys

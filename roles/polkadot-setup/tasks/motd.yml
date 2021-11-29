@@ -1,0 +1,9 @@
+---
+
+- name: create file motd
+  template:
+    src: motd
+    dest: /etc/motd
+    mode: 0644
+    owner: root
+    group: root

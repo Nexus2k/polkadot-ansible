@@ -1,0 +1,10 @@
+---
+# tasks file for polkadot-validator
+- name: journald config
+  import_tasks: journald.yml
+
+- name: docker setup
+  import_tasks: docker.yml
+
+- name: motd
+  import_tasks: motd.yml
