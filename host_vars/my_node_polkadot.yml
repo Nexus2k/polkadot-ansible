@@ -11,3 +11,6 @@ rpc_listen: 127.0.0.1:9933
 ws_listen: 127.0.0.1:9944
 metrics_listen: 127.0.0.1:9615
 db_path: '~/{{chain}}'
+claimer_path: '~/{{chain}}-claimer'
+api_endpoint: 'wss://rpc.polkadot.io/'
+stash_addr: 'YOUR-STASH-ADDR-GOES-HERE'
