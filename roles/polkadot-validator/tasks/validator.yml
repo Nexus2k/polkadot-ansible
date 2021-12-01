@@ -33,6 +33,7 @@
                         "--listen-addr=/ip4/0.0.0.0/tcp/{{ p2p_listen }}",
                         "--public-addr=/ip4/{{ ansible_default_ipv4.address }}/tcp/{{ p2p_listen }}",
                         "--prometheus-external",
+                        "--no-mdns",
                         "--unsafe-pruning",
                         "--pruning=1000",
                         "--telemetry-url=wss://telemetry.polkadot.io/submit/ 1",

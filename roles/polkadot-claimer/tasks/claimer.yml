@@ -48,5 +48,5 @@
   cron:
     name: "claim rewards for {{ chain }}"
     minute: "0"
-    hour: "12,18"
+    hour: "10,22"
     job: "/usr/bin/docker-compose -f ~/dc-{{ chain }}-claimer.yml up --remove-orphans >> /var/log/{{ chain }}-claimer.log"
