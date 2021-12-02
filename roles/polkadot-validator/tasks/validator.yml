@@ -15,6 +15,7 @@
 - name: Spin up docker
   docker_compose:
     project_name: '{{ chain }}'
+    pull: yes
     definition:
         version: '3'
         services:
