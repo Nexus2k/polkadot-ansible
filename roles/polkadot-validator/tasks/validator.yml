@@ -2,7 +2,7 @@
 - name: Clean running validator
   docker_container:
     name: '{{ chain }}'
-    state: stopped
+    state: absent
   ignore_errors: yes
 
 - name: Setup db path
