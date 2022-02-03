@@ -1,21 +1,20 @@
 ---
-- name: Ensure db path exists
-  file:
-    path: '{{ db_path }}'
-    state: directory
-    owner: 1000
-    group: 1000
-
 - name: db_dest_path as fact
   set_fact:
     db_dest_path: '{{ db_path }}/.local/share/polkadot/chains/{{ polkadot_network_id }}'
   when: db_path is defined
 
+- name: Ensure db_dest_path exists
+  file:
+    path: '{{ db_dest_path }}'
+    state: directory
+    owner: '1000'
+    group: '1000'
+
 - name: download db
   get_url:
     url: '{{ polkadot_db_snapshot_url }}'
-    checksum: '{{ polkadot_db_snapshot_checksum | quote }}'
-    dest: '{{ db_dest_path }}/db.new.7z'
+    dest: '{{ db_dest_path }}/db.new.tar.lz4'
     mode: '0700'
 
 - name: Stop running validator
@@ -29,8 +28,8 @@
     set -o pipefail
     cd {{ db_dest_path }}
     mv db db.back
-    7z x db.new.7z
-    rm db.new.7z
+    lz4 -c -d db.new.tar.lz4 | tar -x -C ./
+    rm db.new.tar.lz4
     chown -R 1000:1000 db/
   args:
     executable: /bin/bash

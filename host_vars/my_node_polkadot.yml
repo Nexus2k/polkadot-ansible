@@ -2,9 +2,8 @@
 node_name: 'MyNode-DOT' # Change this!
 chain: polkadot
 polkadot_network_id: polkadot
-# Update the url and checksum with latest version from https://dot-rocksdb.polkashots.io/
-polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/polkadot-7781738.RocksDb.7z'
-polkadot_db_snapshot_checksum: 'sha256:b5137b4ebcbbe93fb99c1a1570507e2336cda6532fd978a189733fb94993daf8'
+# Snapshot Provider: https://polkashots.io/
+polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/snapshot'
 p2p_listen: 30333
 # Keep these bound to 127.0.0.1 you otherwise expose the ports to the public!
 rpc_listen: 127.0.0.1:9933

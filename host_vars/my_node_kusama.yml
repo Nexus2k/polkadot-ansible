@@ -2,9 +2,8 @@
 node_name: 'MyNode-KSM'
 chain: kusama
 polkadot_network_id: ksmcc3
-# Update the url and checksum with latest version from https://ksm-rocksdb.polkashots.io/
-polkadot_db_snapshot_url: 'https://ksm-rocksdb.polkashots.io/kusama-10176025.RocksDb.7z'
-polkadot_db_snapshot_checksum: 'sha256:b26166e600677603c68f51d1d46db9d83d4c60c6e0058d49838fb3df1c7c44c7'
+# Snapshot Provider: https://polkashots.io/
+polkadot_db_snapshot_url: 'https://ksm-rocksdb.polkashots.io/snapshot'
 p2p_listen: 30334
 # Keep these bound to 127.0.0.1 you otherwise expose the ports to the public!
 rpc_listen: 127.0.0.1:9934
