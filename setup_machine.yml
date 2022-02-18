@@ -1,6 +1,6 @@
 ---
 - name: setup
-  hosts: all
+  hosts: polkadot
   become: yes
   roles:
   - polkadot-setup
