@@ -16,6 +16,16 @@
     url: '{{ polkadot_db_snapshot_url }}'
     dest: '{{ db_dest_path }}/db.new.tar.lz4'
     mode: '0700'
+  async: 6000
+  poll: 0
+  register: db_download_result
+
+- name: check status of DB tar file download
+  async_status:
+    jid: "{{ db_download_result.ansible_job_id }}"
+  register: db_download_job_result
+  until: db_download_job_result.finished
+  retries: 300 # If the 80+ GB download takes longer than 30mins increase this number
 
 - name: Stop running validator
   docker_container:
