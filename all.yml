@@ -2,7 +2,7 @@
 # Update the DB download link and checksum in the host_vars first!
 ---
 - name: setup
-  hosts: all
+  hosts: polkadot
   become: yes
   roles:
   - polkadot-setup
