@@ -25,7 +25,7 @@
     jid: "{{ db_download_result.ansible_job_id }}"
   register: db_download_job_result
   until: db_download_job_result.finished
-  retries: 300 # If the 80+ GB download takes longer than 30mins increase this number
+  retries: 600 # If the 80+ GB download takes longer than 30mins increase this number
 
 - name: Stop running validator
   docker_container:
