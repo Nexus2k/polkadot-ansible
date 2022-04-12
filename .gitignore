@@ -1,5 +1,7 @@
 hosts.ini
 
+.vs/*
+
 host_vars/*
 !host_vars/my_*
 
