@@ -1,12 +1,12 @@
 ---
 - name: Rotate polkadot keys
-  hosts: polkadot
+  hosts: validator1
   become: yes
   roles:
     - polkadot-rotate-keys
 
 - name: Rotate kusama keys
-  hosts: kusama
+  hosts: validator2
   become: yes
   roles:
     - polkadot-rotate-keys

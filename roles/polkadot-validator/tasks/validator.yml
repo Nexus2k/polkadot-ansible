@@ -1,7 +1,7 @@
 ---
 - name: Clean running validator
   docker_container:
-    name: '{{ chain }}'
+    name: '{{ docker_name }}'
     state: absent
   ignore_errors: yes
 
@@ -14,14 +14,14 @@
 
 - name: Spin up docker
   docker_compose:
-    project_name: '{{ chain }}'
+    project_name: '{{ docker_name }}'
     pull: yes
     definition:
         version: '3'
         services:
             polkadot:
                 image: parity/polkadot
-                container_name: '{{ chain }}'
+                container_name: '{{ docker_name }}'
                 command:
                     [
                         "--name={{ node_name }}",
@@ -47,7 +47,7 @@
                 - "{{ ws_listen }}:9944"
                 - "{{ metrics_listen }}:9615"
                 - "{{ p2p_listen }}:30333"
-                hostname: '{{ chain }}'
+                hostname: '{{ docker_name }}'
                 restart: unless-stopped
   register: output
 
@@ -56,4 +56,4 @@
 
 - ansible.builtin.assert:
     that:
-        - "output.services.polkadot.{{ chain }}.state.running"
+        - "output.services.polkadot.{{ docker_name }}.state.running"
