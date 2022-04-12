@@ -1,6 +1,7 @@
 ---
 node_name: 'MyNode-KSM'
 chain: kusama
+docker_name: kusama_mynode
 polkadot_network_id: ksmcc3
 # Snapshot Provider: https://polkashots.io/
 polkadot_db_snapshot_url: 'https://ksm-rocksdb.polkashots.io/snapshot'

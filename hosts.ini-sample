@@ -1,9 +1,9 @@
 # Make sure to have a corresponding yml file in the host_vars folder for each server here!
 
-[polkadot]
+[validator1]
 my_node_polkadot ansible_host=<IP of your server>
 
-[kusama]
+[validator2]
 my_node_kusama ansible_host=<IP of your server>
 
 # Common variables

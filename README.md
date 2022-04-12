@@ -1,5 +1,5 @@
 ﻿# polkadot-ansible
-Ansible scripts to deploy a Docker based Polkadot/Kusama validator node. No need for compiling and complicated dependency management :)
+Ansible scripts to deploy up to two Docker based polkadot validator nodes. No need for compiling and complicated dependency management :)
 
 ## Please Nominate or Tip Me!
 

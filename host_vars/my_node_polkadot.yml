@@ -1,6 +1,7 @@
 ---
 node_name: 'MyNode-DOT' # Change this!
 chain: polkadot
+docker_name: polkadot_mynode
 polkadot_network_id: polkadot
 # Snapshot Provider: https://polkashots.io/
 polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/snapshot'
