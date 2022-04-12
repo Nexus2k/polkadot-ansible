@@ -42,11 +42,11 @@
 - name: Fill docker-compose claimer template
   template:
     src: 'docker-compose-claimer.yml'
-    dest: 'dc-{{ chain }}-claimer.yml'
+    dest: 'dc-{{ docker_name }}-claimer.yml'
 
 - name: Setup cronjob
   cron:
-    name: "claim rewards for {{ chain }}"
+    name: "claim rewards for {{ docker_name }}"
     minute: "0"
     hour: "10,22"
-    job: "/usr/bin/docker-compose -f ~/dc-{{ chain }}-claimer.yml up --remove-orphans >> /var/log/{{ chain }}-claimer.log"
+    job: "/usr/bin/docker-compose -f ~/dc-{{ docker_name }}-claimer.yml up --remove-orphans >> /var/log/{{ docker_name }}-claimer.log"
