@@ -49,6 +49,8 @@ This will execute the following roles:
   *  Setups a cronjob which executes a docker container that claims the staking rewards
 * polkadot-rotate-keys
   *  Rotates the session keys so you can use for the `SetSessionKeys` extrinsic
+* watchtower (not run automatically, run using `ansible-playbook -i hosts.ini setup_watchtower.yml`)
+  *  Sets up a watchtower container which monitors upstream container image repositories for new releases and upgrades automatically.
 
 You can also run the individual roles using the `setup_*.yml` playbooks instead of `all.yml`.
 

@@ -1,4 +1,6 @@
 hosts.ini
+hosts*
+!hosts.ini-sample
 
 .vs/*
 

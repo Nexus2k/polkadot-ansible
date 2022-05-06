@@ -1,0 +1,29 @@
+---
+- name: Clean running watchtower
+  docker_container:
+    name: 'watchtower'
+    state: absent
+  ignore_errors: yes
+
+- name: Spin up watchtower
+  docker_compose:
+    project_name: 'watchtower'
+    pull: yes
+    definition:
+        version: '3'
+        services:  
+            watchtower:
+              image: containrrr/watchtower
+              volumes:
+                - /var/run/docker.sock:/var/run/docker.sock
+              command: --interval 300
+              hostname: 'watchtower'
+              restart: unless-stopped
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+- ansible.builtin.assert:
+    that:
+        - "output.services.watchtower.watchtower_watchtower_1.state.running"
