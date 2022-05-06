@@ -1,0 +1,6 @@
+---
+- name: Setup watchtower on validator 1
+  hosts: validator1
+  become: yes
+  roles:
+    - watchtower

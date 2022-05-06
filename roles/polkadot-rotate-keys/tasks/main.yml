@@ -15,4 +15,4 @@
 - name: save rotateKeys output
   copy:
     content: "{{ rotate_keys.json }}"
-    dest: ~/{{chain}}_rotate_keys.log
+    dest: ~/{{docker_name}}_rotate_keys.log
