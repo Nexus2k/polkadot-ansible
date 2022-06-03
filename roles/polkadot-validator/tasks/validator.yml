@@ -45,7 +45,7 @@
                 - "{{ rpc_listen }}:9933"
                 - "{{ ws_listen }}:9944"
                 - "{{ metrics_listen }}:9615"
-                - "{{ p2p_listen }}:30333"
+                - "{{ p2p_listen }}:{{ p2p_listen }}"
                 hostname: '{{ docker_name }}'
                 restart: unless-stopped
   register: output
