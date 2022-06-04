@@ -31,7 +31,7 @@
                         "--rpc-methods=Unsafe",
                         "--rpc-external",
                         "--rpc-cors=all",
-                        "--listen-addr=/ip4/0.0.0.0/tcp/{{ p2p_listen }}",
+                        "--listen-addr=/ip4/0.0.0.0/tcp/30333",
                         "--public-addr=/ip4/{{ ansible_default_ipv4.address }}/tcp/{{ p2p_listen }}",
                         "--prometheus-external",
                         "--no-mdns",
@@ -45,7 +45,7 @@
                 - "{{ rpc_listen }}:9933"
                 - "{{ ws_listen }}:9944"
                 - "{{ metrics_listen }}:9615"
-                - "{{ p2p_listen }}:{{ p2p_listen }}"
+                - "{{ p2p_listen }}:30333"
                 hostname: '{{ docker_name }}'
                 restart: unless-stopped
   register: output
