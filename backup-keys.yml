@@ -1,0 +1,12 @@
+---
+- name: Rotate validator1 keys
+  hosts: validator1
+  become: yes
+  roles:
+    - polkadot-backup-keys
+
+- name: Rotate validator2 keys
+  hosts: validator2
+  become: yes
+  roles:
+    - polkadot-backup-keys

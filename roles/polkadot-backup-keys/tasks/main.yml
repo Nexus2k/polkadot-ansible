@@ -1,0 +1,17 @@
+- name: Create backup directory
+  ansible.builtin.file:
+    path: backup
+    state: directory
+  register: local_dir
+  delegate_to: localhost
+  become: no
+
+- name: backup server keys
+  synchronize:  
+    src: '{{ item }}' 
+    dest: backup/{{ inventory_hostname }}/ 
+    mode: pull
+    use_ssh_args: yes
+  with_items:
+    - "{{ db_path }}/.local/share/polkadot/chains/{{ polkadot_network_id }}/keystore"
+    - "{{ db_path }}/.local/share/polkadot/chains/{{ polkadot_network_id }}/network"
