@@ -40,7 +40,7 @@
                         "--telemetry-url={{ telemetry_url }} 1"
                     ]
                 volumes:
-                - "{{ db_path }}:/polkadot"
+                - "{{ db_path }}:/parity"
                 ports:
                 - "{{ rpc_listen }}:9933"
                 - "{{ ws_listen }}:9944"
