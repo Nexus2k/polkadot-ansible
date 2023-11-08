@@ -42,7 +42,7 @@
                 volumes:
                 - "{{ db_path }}:/parity"
                 ports:
-                - "{{ rpc_listen }}:9933"
+                - "{{ rpc_listen }}:9944"
                 - "{{ ws_listen }}:9944"
                 - "{{ metrics_listen }}:9615"
                 - "{{ p2p_listen }}:30333"
