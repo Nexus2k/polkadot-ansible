@@ -3,8 +3,8 @@ node_name: 'MyNode-DOT' # Change this!
 chain: polkadot
 docker_name: polkadot_mynode
 polkadot_network_id: polkadot
-# Snapshot Provider: https://polkashots.io/
-polkadot_db_snapshot_url: 'https://dot-rocksdb.polkashots.io/snapshot'
+# Snapshot Provider: http://snapshot.stakeworld.io
+polkadot_db_snapshot_url: 'http://snapshot.stakeworld.io/paritydb-polkadot.lz4'
 p2p_listen: 30333
 # Keep these bound to 127.0.0.1 you otherwise expose the ports to the public!
 rpc_listen: 127.0.0.1:9933
