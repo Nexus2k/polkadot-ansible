@@ -16,7 +16,7 @@
     url: '{{ polkadot_db_snapshot_url }}'
     dest: '{{ db_dest_path }}/db.new.tar.lz4'
     mode: '0700'
-  async: 6000
+  async: 7200 # 2 hours
   poll: 0
   register: db_download_result
 
@@ -25,7 +25,7 @@
     jid: "{{ db_download_result.ansible_job_id }}"
   register: db_download_job_result
   until: db_download_job_result.finished
-  retries: 600 # If the 80+ GB download takes longer than 30mins increase this number
+  retries: 2000 # If the 300+ GB download takes longer than 2h increase this number
 
 - name: Stop running validator
   docker_container:
@@ -40,7 +40,7 @@
     mv db db.back
     lz4 -c -d db.new.tar.lz4 | tar -x -C ./
     rm db.new.tar.lz4
-    chown -R 1000:1000 db/
+    chown -R 1000:1000 db/ paritydb/
   args:
     executable: /bin/bash
 

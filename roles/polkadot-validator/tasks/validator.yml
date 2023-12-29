@@ -12,6 +12,13 @@
     owner: 1000
     group: 1000
 
+- name: Chown db path
+  file:
+    path: '{{ db_path }}'
+    owner: 1000
+    group: 1000
+    recurse: yes
+
 - name: Spin up docker
   docker_compose:
     project_name: '{{ docker_name }}'
@@ -34,10 +41,12 @@
                         "--listen-addr=/ip4/0.0.0.0/tcp/30333",
                         "--public-addr=/ip4/{{ ansible_default_ipv4.address }}/tcp/{{ p2p_listen }}",
                         "--prometheus-external",
+                        "--no-private-ip",
                         "--no-mdns",
-                        "--pruning=1000",
+                        "--state-pruning=1000",
                         "--telemetry-url=wss://telemetry.polkadot.io/submit/ 1",
-                        "--telemetry-url={{ telemetry_url }} 1"
+                        "--telemetry-url={{ telemetry_url }} 1",
+                        "--database=paritydb"
                     ]
                 volumes:
                 - "{{ db_path }}:/parity"
