@@ -22,3 +22,4 @@
 - name: Install Docker Module for Python
   pip:
     name: docker
+    break_system_packages: true

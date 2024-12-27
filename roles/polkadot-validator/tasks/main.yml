@@ -1,3 +1,69 @@
 ---
+- name: Clean running validator
+  docker_container:
+    name: '{{ docker_name }}'
+    state: absent
+  ignore_errors: yes
 
-- include: validator.yml
+- name: Setup db path
+  file:
+    path: '{{ db_path }}'
+    state: directory
+    owner: 1000
+    group: 1000
+
+- name: Chown db path
+  file:
+    path: '{{ db_path }}'
+    owner: 1000
+    group: 1000
+    recurse: yes
+
+- name: Spin up docker
+  docker_compose:
+    project_name: '{{ docker_name }}'
+    pull: yes
+    definition:
+        version: '3'
+        services:
+            polkadot:
+                image: parity/polkadot
+                container_name: '{{ docker_name }}'
+                command:
+                    [
+                        "--name={{ node_name }}",
+                        "-l{{ logging_filter }}",
+                        "--chain={{ chain }}",
+                        "--validator",
+                        "--rpc-methods=Unsafe",
+                        "--rpc-external",
+                        "--rpc-cors=all",
+                        "--listen-addr=/ip4/0.0.0.0/tcp/30333",
+                        "--public-addr=/ip4/{{ ansible_default_ipv4.address }}/tcp/{{ p2p_listen }}",
+                        "--prometheus-external",
+                        "--no-private-ip",
+                        "--no-mdns",
+                        "--sync=warp",
+                        "--state-pruning=256",
+                        "--telemetry-url=wss://telemetry.polkadot.io/submit/ 1",
+                        "--telemetry-url={{ telemetry_url }} 1",
+                        "--database=paritydb",
+                        "--unsafe-force-node-key-generation" # remove this after first start
+                    ]
+                volumes:
+                - "{{ db_path }}:/parity"
+                ports:
+                - "{{ rpc_listen }}:9944"
+                - "{{ ws_listen }}:9944"
+                - "{{ metrics_listen }}:9615"
+                - "{{ p2p_listen }}:30333"
+                hostname: '{{ docker_name }}'
+                restart: unless-stopped
+  register: output
+
+- ansible.builtin.debug:
+    var: output
+
+- ansible.builtin.assert:
+    that:
+        - "output.services.polkadot.{{ docker_name }}.state.running"
