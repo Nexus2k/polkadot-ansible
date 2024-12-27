@@ -3,8 +3,8 @@ node_name: 'MyNode-KSM'
 chain: kusama
 docker_name: kusama_mynode
 polkadot_network_id: ksmcc3
-# Snapshot Provider: https://polkashots.io/
-polkadot_db_snapshot_url: 'https://ksm-rocksdb.polkashots.io/snapshot'
+# Snapshot Provider: http://snapshot.stakeworld.io
+polkadot_db_snapshot_url: 'http://snapshot.stakeworld.io/paritydb-ksmcc3.lz4'
 p2p_listen: 30334
 # Keep these bound to 127.0.0.1 you otherwise expose the ports to the public!
 rpc_listen: 127.0.0.1:9934
