@@ -44,6 +44,7 @@
                         "--no-private-ip",
                         "--no-mdns",
                         "--sync=warp",
+                        "--blocks-pruning=256",
                         "--state-pruning=256",
                         "--telemetry-url=wss://telemetry.polkadot.io/submit/ 1",
                         "--telemetry-url={{ telemetry_url }} 1",
